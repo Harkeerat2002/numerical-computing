@@ -44,7 +44,7 @@
 \setassignment
 \setduedate{Wednesday, 11 October 2023, 23:59 AM}
 
-\serieheader{Numerical Computing}{2023}{\textbf{Student:} Harkeerat Singh Sawhney}{\textbf{Discussed with:} FULL NAME}{Solution for Project 1}{}
+\serieheader{Numerical Computing}{2023}{\textbf{Student:} Harkeerat Singh Sawhney}{\textbf{Discussed with:} Guerrero Toro Cindy}{Solution for Project 1}{}
 \newline
 
 \assignmentpolicy
@@ -250,8 +250,201 @@ When the value of p is increased to close to 1, the PageRank of the nodes in the
 
 \subsection{PageRanks by solving a sparse linear system [25 points]}
 
+\subsubsection{Create pagerank1.m by modifying pagerank.m to use the power method instead of solving the sparse
+    linear system.}
+
+\begin{mcode}
+    function x = pagerank1(U,G,p)
+    %.....
+    disp('Using Power Method Implementation\n');
+    G = p * G * D;
+    z = ((1 - p) * (c ~= 0) + (c == 0))/n;
+    prec = 1e-16;
+    x = e/n;
+    x_old = zeros(size(x));
+
+    while((norm(x - x_old)/ norm(x_old)) > prec)
+    x_old = x;
+    x = G * x + e * (z * x);
+    disp(x - x_old)
+    end
+    %.....
+    end
+\end{mcode}
+
+The apappropriate test for terminating the Power Method is with by getting the norm difference of x and x-old and seeing if it is bigger then the precision. The precision is set to $ 1e-16 $. If it is not bigger, then we assume that there has been a convergence and hence we terminate the Power Method. \\
+
+\begin{table}[h]
+    \centering
+
+
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        index & page-rank & in  & out & url   \\
+        $i$   & $x$       & $r$ & $c$ & $U$   \\
+        \hline
+        4     & 0.203694  & 2   & 1   & delta \\
+        1     & 0.19814   & 1   & 2   & alpha \\
+        5     & 0.166667  & 1   & 1   & rho   \\
+        6     & 0.166667  & 1   & 1   & sigma \\
+        3     & 0.155623  & 2   & 1   & gamma \\
+        2     & 0.109209  & 1   & 2   & beta  \\
+        \hline
+    \end{tabular}
+    \caption{PageRank1 table}
+    \label{tab:pagerank}
+\end{table}
+
+The above example uses the six-node as an example to test the Power Method. The PageRank1 table is shown in Table \ref{tab:pagerank}. The pagerank1 function took in total \textbf{125} iterations to converge.
+
+\subsubsection{\texorpdfstring{Create \texttt{pagerank2.m} by modifying \texttt{pagerank.m} to use the inverse iteration. Use your functions \texttt{pagerank1.m} and \texttt{pagerank2.m} (set $\alpha = 0.99$) to compute the PageRanks of the six-node example presented in Figure 1. Make sure you get the same result from each of your three functions.}{Create pagerank2.m by modifying pagerank.m to use the inverse iteration. Use your functions pagerank1.m and pagerank2.m (set α = 0.99) to compute the PageRanks of the six-node example presented in Figure 1. Make sure you get the same result from each of your three functions.}}
+
+\begin{mcode}
+    function x = pagerank1(U,G,p)
+    %.....
+    disp('Using Inverse Iteartion Implementation\n');
+    G = p * G * D;
+
+    z = ((1 - p) * (c ~= 0) + (c == 0))/n;
+    A = p * G * D + e * z;
+
+    prec = 1e-16;
+    x = e/n;
+    x_old = zeros(size(x));
+    alpha = 0.99;
+    iter = 0;
+    while((norm(x - x_old)/ norm(x_old)) > prec)
+        x_old = x;
+        x = (alpha * I - A) \ x;
+        x = x / norm(x,1);
+        iter = iter + 1;
+    end
+    %.....
+    end
+\end{mcode}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            index & page-rank & in  & out & url   \\
+            $i$   & $x$       & $r$ & $c$ & $U$   \\
+            \hline
+            4     & 0.203694  & 2   & 1   & delta \\
+            1     & 0.19814   & 1   & 2   & alpha \\
+            5     & 0.166667  & 1   & 1   & rho   \\
+            6     & 0.166667  & 1   & 1   & sigma \\
+            3     & 0.155623  & 2   & 1   & gamma \\
+            2     & 0.109209  & 1   & 2   & beta  \\
+            \hline
+        \end{tabular}
+        \caption{PageRank1 table}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            index & page-rank & in  & out & url   \\
+            $i$   & $x$       & $r$ & $c$ & $U$   \\
+            \hline
+            4     & 0.203694  & 2   & 1   & delta \\
+            1     & 0.19814   & 1   & 2   & alpha \\
+            5     & 0.166667  & 1   & 1   & rho   \\
+            6     & 0.166667  & 1   & 1   & sigma \\
+            3     & 0.155623  & 2   & 1   & gamma \\
+            2     & 0.109209  & 1   & 2   & beta  \\
+            \hline
+        \end{tabular}
+        \caption{PageRank2 table}
+    \end{minipage}
+\end{figure}
+
+While pagerank1 took \textbf{125} iterations to converge, pagerank2 took \textbf{52} iterations to converge.\\
+
+\subsubsection{We now want to analyse the impact of alpha on the inverse iteration. Using the ETH500 example, set alpha equal to 0.8, 0.9, 0.95 and 1. Comment on the different number of iterations the four cases take until convergence. Analyse your results and explain what you observe.}
+
+
+
+
+\noindent
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Degree Centrality & Author    & Index \\
+        \hline
+        31                & Golub     & 1     \\
+        \hline
+        15                & Demmel    & 104   \\
+        \hline
+        13                & Plemmons  & 86    \\
+        \hline
+        12                & Schreiber & 44    \\
+        \hline
+        12                & Heath     & 81    \\
+        \hline
+    \end{tabular}
+    \caption{Top 5 authors with highest degree centrality}
+\end{table}
+
+As it can be sene from the table above, as the value of $\alpha$ increases the number of iterations required to converge also increases the iteration as well increases with it. This is because as the value of $\alpha$ increases the value of $ \frac{1}{\lambda_1 - \alpha} $ decreases. Hence the convergence is slower. \\
+
+\subsubsection{Use your functions pagerank1.m and pagerank2.m (set alpha = 0.99) to compute the PageRanks of three selected graphs (web1.mat, web2.mat and web3.mat). Report on the convergence of the two methods
+for these subgraphs and summarize the advantages and disadvantages of the power method implemented in
+pagerank1.m against the inverse iteration in pagerank2.m.}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Website & PageRank 1 Itearation & PageRank 2 Iteration \\
+        \hline
+        Web 1 & 173 & 98 \\
+        Web 2 & 145 & 74 \\
+        Web 3 & 212 & 93 \\
+        \hline
+    \end{tabular}
+    \caption{PageRank1 vs PageRank2}
+\end{figure}
+
+From the above data which was computed it can be seen that PageRank2 perfomed better in terms of iteration as compare to PageRank1. However PageRank1 which uses the Power Method is computationly cheaper than PageRank2 which uses the Inverse Iteration. Due to this the time it takes to compute PageRank1 is much less as compare to PageRank2. Hence PageRank1 is usefull in majority of the cases, but takes much more iterations to converge. In the other PageRank1 congerges in less iterations, but is very senstive to its alpha value. \\
+
 \subsection{The Reverse Cuthill--McKee Ordering [5 points]}
 
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/exc5.jpg}
+        \caption{Original Matrix}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/exc5n.jpg}
+        \caption{Reverse Cuthill McKee Matrix}
+    \end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/exc5o.jpg}
+        \caption{Cholesky factorization of the original matrix}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/s.jpg}
+        \caption{Cholesky factorization of the reverse Cuthill McKee matrix}
+    \end{minipage}
+\end{figure}
+
+The non-zero elemnts in the Cholesky Factorization of the original matrix is \textbf{7703122}, while for the Cholesky Factorization of the reverse Cuthill McKee matrix is \textbf{757302}.
 \subsection{Sparse Matrix Factorization [10 points]}
 \subsubsection{Construct matrix A for the case n = 10 and explicitly write down its entries. How many non-zero elements does it have?}
 \[ A =
@@ -292,18 +485,18 @@ Hence in total there are 6 elements which are being counted more than once. Henc
 
 \begin{mcode}
     function [A,nz] = A_construct(n)
-        A = zeros(n);       % initialize matrix
-        for i = 1:n         % iterate over rows
-            for j = 1:n     % iterate over columns
-                if i == j
-                    A(i, j) = n + i - 1;
-                elseif i == 1 || i == n || j == 1 || j == n
-                    A(i, j) = 1;
-                else
-                    A(i, j) = 0;
-                end
-            end
-        end
+    A = zeros(n);       % initialize matrix
+    for i = 1:n         % iterate over rows
+    for j = 1:n     % iterate over columns
+    if i == j
+    A(i, j) = n + i - 1;
+    elseif i == 1 || i == n || j == 1 || j == n
+    A(i, j) = 1;
+    else
+    A(i, j) = 0;
+    end
+    end
+    end
     nz = nnz(A);
     end
 \end{mcode}
@@ -330,12 +523,13 @@ By running the above function, which replicates the Eq. 14, we obtained the same
         \centering
         \includegraphics[width=\textwidth]{images/chol.jpg}
     \end{minipage}
-    \caption{Spy plot for the matrix A vs Cholesky factorization for the matrix A} 
+    \caption{Spy plot for the matrix A vs Cholesky factorization for the matrix A}
     \label{fig:comparison}
 \end{figure}
 
 \subsubsection{Explain why, for n = 100, 000, using chol() to solve Ax = b for a given right-hand-side vector b would be problematic. Are there ways to mitigate this issue?}
 
+When n = 100,000 is run using chol() Matlab gives an error saying there is not enough memory for the operation to take place. This is because the matrix A is a dense matrix and hence it takes a lot of memory to perform all the computing with chol(). The complexity for this operation is $O(n^3)$. Hence if this operations is needed to perform either a powerfull machine is required or the matrix A needs to formed as a lower triangular matrix which would make the computation much faster. \\
 
 \subsection{Degree Centrality [5 points]}
 \noindent
@@ -343,31 +537,49 @@ By running the above function, which replicates the Eq. 14, we obtained the same
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
-        Degree Centrality & Author  & Index \\
+        Degree Centrality & Author    & Index \\
         \hline
-        32 & Golub & 1  \\
+        31                & Golub     & 1     \\
         \hline
-        16    & Demmel & 104  \\
+        15                & Demmel    & 104   \\
         \hline
-        14     & Plemmons   & 86  \\
+        13                & Plemmons  & 86    \\
         \hline
-        13     & Schreiber & 44  \\
+        12                & Schreiber & 44    \\
         \hline
-        13    & Heath & 81  \\
+        12                & Heath     & 81    \\
         \hline
     \end{tabular}
     \caption{Top 5 authors with highest degree centrality}
 \end{table}
 
+The above table repersents the Top 5 authors with the highest degree centrality. The degree centrality is the number of edges that are connected to the node. In this case the node is the author. Hence the degree centrality is the number of coauthors that the author has. \\
+
 \subsection{The Connectivity of the Coauthors [5 points]}
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        Authors & Common Authors \\
+        \hline
+        Golub, Moler & Wilkinson, VanLoan \\
+        Golub, Saunders & Saunders \\
+        TChan, Demmel & Schreiber, Arioli, Duff, Heath \\
+        \hline
+    \end{tabular}
+    \caption{Table of Common Authors}
+\end{figure}
 
 \subsection{PageRank of the Coauthor Graph [5 points]}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/exc9.jpg}
+    \caption{PageRank of all the Authors}
+    \label{fig:exc9}
+\end{figure}
 
-
-\subsection{Quality of the Report [15 points]}
-
-
-
+In the Figure \ref{fig:exc9} the PageRank of all the authors is shown. The PageRank1 was modified which used the power method, in which it took the authors as the inputs to compute the pagerank for them. This script can be found as named as \textit{exc9.m}. \\
 
 \end{document}

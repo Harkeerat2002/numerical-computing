@@ -1,0 +1,17 @@
+file = load("householder\housegraph.mat");
+
+% (Golub, Moler), (Golub, Saunders), (TChan, Demmel)
+
+B = file.A;
+B = A - diag(diag(A));
+
+commonNames1 = [];
+commonNames2 = [];
+for i = 1:length(B)
+    if B(file.Golub, i) == 1
+        commonNames1 = [commonNames1, i];
+    end
+    if B(file.Moler, i) == 1
+        commonNames2 = [commonNames2, i];
+    end
+end

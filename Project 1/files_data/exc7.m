@@ -13,7 +13,6 @@ for i = 1:5
     for j = 1:20
         n = [n, authors(indices(i), j)];
     end
-    fprintf(n, indices(i), topValues(i))
 end
 
             
