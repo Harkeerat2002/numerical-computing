@@ -2,6 +2,40 @@
 
 \input{assignment.sty}
 
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amsmath, amssymb} % for math symbols and fonts
+\usepackage{hyperref} % for hyperlinks
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstnewenvironment{mcode}[1][]
+{\lstset{style=mystyle,#1}}
+{}
+
+\lstdefinestyle{mystyle}{
+    language=Matlab,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    numbersep=5pt,
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
 
 \begin{document}
 
@@ -9,7 +43,7 @@
 \setassignment
 \setduedate{Wednesday, 25 October 2023, 11:59 PM}
 
-\serieheader{Numerical Computing}{2023}{Student: FULL NAME}{Discussed with: FULL NAME}{Solution for Project 2}{}
+\serieheader{Numerical Computing}{2023}{Student: Harkeerat Singh Sawhney}{}{Solution for Project 2}{}
 \newline
 
 \assignmentpolicy
@@ -21,66 +55,139 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Implement various graph partitioning algorithms [50 points]}
-Summarize your results in table \ref{table:bisection}.
+In this Question we were asked to implement two function, one for Spectral Bisection adn the other for Inertial Bisection.
 
+\begin{mcode}
+    % 1. Construct the Laplacian matrix
+    n = size(A,1);
+    D = diag(sum(A,2));
+    L = D - A;
+
+    % 2. Calculate its eigensdecomposition.
+    [V,D] = eigs(L,2,'sm');
+
+    % 3. Label the vertices with the components of the Fiedler vector.
+    fiedler = V(:,2);
+
+    % 4. Partition them around their median value, or 0.
+    median_value = 0;
+    part1 = find(fiedler < median_value);
+    part2 = find(fiedler >= median_value);
+\end{mcode}
+
+The above code is the implementation of Spectral Bisection. As it can be seen from the above code there are 4 steps to implement it. The first step is to construct the Laplacian matrix, which is done by the equation $L = D - W$, where $D$ is a diagonal matrix with the degree of each vertex on the diagonal and $W$ is the adjacency matrix. The second step is to calculate the eigensdecomposition of the Laplacian matrix. This was done by using the MATLAB function \texttt{eigs}. The function lets us choose the number of eigenvalues and eigenvectors we want, in which we get the second smallest eigenvalue and its corresponding eigenvector. The third step is to label the vertices with the components of the Fiedler vector, which is done by taking the second smallest eigenvector. At last we are supposed to partition the vertices around the median value. Median value can either be 0 or the median of the Fiedler vector. In our case for simplicity we have chosen the median value to be 0. The vertices with the Fiedler vector value less than 0 are assigned to one partition and the vertices with the Fiedler vector value greater than or equal to 0 are assigned to the other partition. With this we are able to partition the graph into two parts.
+
+\begin{mcode}
+    % 1. Calculate the center of mass.
+    x = xy(:,1);
+    y = xy(:,2);
+
+    x = sum(x)/length(x);
+    y = sum(y)/length(y);
+
+    center_of_mass = [x,y];
+
+    % 2. Construct the matrix M.
+    %  (Consult the pdf of the assignment for the creation of M)
+
+    Sxx = sum((xy(:,1) - center_of_mass(1)).^2);
+    Syy = sum((xy(:,2) - center_of_mass(2)).^2);
+    Sxy = sum((xy(:,1) - center_of_mass(1)).*(xy(:,2) - center_of_mass(2)));
+    M = [Sxx, Sxy; Sxy, Syy];
+
+    % 3. Calculate the smallest eigenvector of M.
+    [V,D] = eigs(M,2,'sm');
+    v = V(:,1);
+
+
+    % 4. Find the line L on which the center of mass lies.
+    orthogonal_vector = [v(2), -v(1)];
+
+    % 5. Partition the points around the line L.
+    %   (you may use the function partition.m)
+    [part1,part2] = partition(xy,orthogonal_vector);
+\end{mcode}
+
+The above code is the implementation of Inertial Bisection. The main logic behind this algorithm is to find the center of mass of the graph and then find the line on which the center of mass lies. The vertices are then partitioned around the line. Hence the first step is to calculate the center of mass. This is done by taking the x and y coordinates and dividing them by their length. With this we can get the center of mass. After that we need to construct the matrix M which is a matrix of sum of distances. With that we can calculate the smallest eigenvector of M. The reasons we do that is because the smallest eigenvector of M is the orthogonal vector to the line on which the center of the mass line. With that we can partition the vertices around the line. The vertices with the orthogonal vector value less than 0 are assigned to one partition and the vertices with the orthogonal vector value greater than or equal to 0 are assigned to the other partition. With this we are able to partition the graph into two parts.
+
+Hence with this we are able to implement both Spectral Bisection and Inertial Bisection. Table \ref{table:bisection} shows the number of cut edges with different techniques for each of the graphs.
 
 \begin{table}[h]
-\caption{Bisection results}
-\centering
-\begin{tabular}{l|r|r|r|r} \hline\hline 
-Mesh             &  Coordinate           & Metis 5.0.2  & Spectral & Inertial  \\ \hline
-grid5rec(12,100)&   12                   &             &          &           \\             
-grid5rec(100,12)&   12                   &             &          &           \\ 
-grid5recRotate(100,12,-45)&              &             &          &           \\ 
-gridt(50)        &                        &             &          &           \\ 
-grid9(40)        &                        &             &          &           \\ 
-Smallmesh            &                        &             &          &           \\ 
-Tapir            &                        &             &          &           \\ 
-Eppstein            &                        &             &          &           \\  
-\hline \hline
-\end{tabular}
-\label{table:bisection}
+    \caption{Bisection results}
+    \centering
+    \begin{tabular}{l|r|r|r|r}
+        \hline\hline
+        Mesh                       & Coordinate & Metis 5.0.2 & Spectral & Inertial \\
+        \hline
+        grid5rec(12,100)           & 12         & 12          & 12       & 12       \\
+        grid5rec(100,12)           & 12         & 12          & 12       & 12       \\
+        grid5recRotate(100,12,-45) & 22         & 12          & 12       & 12       \\
+        gridt(50)                  & 72         & 82          & 70       & 72       \\
+        grid9(40)                  & 118        & 127         & 128      & 118      \\
+        Smallmesh                  & 25         & 12          & 12       & 30       \\
+        Tapir                      & 55         & 23          & 18       & 49       \\
+        Eppstein                   & 42         & 41          & 42       & 45       \\
+        \hline\hline
+    \end{tabular}
+    \label{table:bisection}
 \end{table}
+
 
 %----
 
 \subsection{Recursively bisecting meshes [20 points]}
 
-Summarize your results in table \ref{table:Rec_bisection}.
-
+In this Question we were asked to implement a function that recursively bisects a mesh. The main advantage for this is to parallelize the computation. With recursion we are able to take advantage of it, by parallelizing the system. With that we can split the graphs into $2^n$ parts, where $n$ is the level of the depth. In Table \ref{table:Rec_bisection-8} and Table \ref{table:Rec_bisection-16} we can see the number of cut edges for recursive bisection with 8 and 16 partitions respectively. The results are compared with Spectral Bisection, Metis 5.1.0, Coordinate Bisection and Inertial Bisection.
 \begin{table}[h]
-\caption{Edge-cut results for recursive bi-partitioning.}
-\centering
-\begin{tabular}{l|r|r|r|r} \hline\hline 
- Case            &  Spectral             &  Metis 5.1.0    & Coordinate & Inertial  \\ \hline
- mesh3e1         &                       &                 &            &           \\             
- bodyy4        &                       &                 &            &           \\ 
- de-2010            &                       &                 &            &           \\ 
- biplane-9          &                       &                 &            &           \\ 
- L-9           &                       &                 &            &           \\  \hline \hline
-\end{tabular}
-\label{table:Rec_bisection}
+    \caption{Edge-cut results for recursive bi-partitioning with 8 Partitions}
+    \centering
+    \begin{tabular}{l|r|r|r|r} \hline\hline
+        Case      & Spectral & Metis 5.1.0 & Coordinate & Inertial \\ \hline
+        mesh3e1   & 51       & 57          & 63         & 59       \\
+        bodyy4    & 1000     & 985         & 1065       & 1364     \\
+        de-2010   & 809      & 491         & 929        & 1084     \\
+        biplane-9 & 411      & 465         & 548        & 648      \\
+        L-9       & 718      & 637         & 631        & 828      \\  \hline \hline
+    \end{tabular}
+    \label{table:Rec_bisection-8}
 \end{table}
 
+\begin{table}[h]
+    \caption{Edge-cut results for recursive bi-partitioning with 16 Partitions}
+    \centering
+    \begin{tabular}{l|r|r|r|r} \hline\hline
+        Case      & Spectral & Metis 5.1.0 & Coordinate & Inertial \\ \hline
+        mesh3e1   & 61       & 57          & 63         & 59       \\
+        bodyy4    & 1675     & 1591        & 1951       & 2214     \\
+        de-2010   & 1512     & 897         & 1796       & 2002     \\
+        biplane-9 & 794      & 845         & 974        & 1093     \\
+        L-9       & 1121     & 1019        & 1028       & 1377     \\  \hline \hline
+    \end{tabular}
+    \label{table:Rec_bisection-16}
+\end{table}
+
+Unfortunately, I was not able to visualize the ”de-2010” mesh because of a bug which by the time of the deadline I was not able to fix it.
 %----
 
 \subsection{Comparing recursive bisection to direct $k$-way partitioning [15 points]}
 
-Summarize your results in table \ref{table:Compare_Metis}.
+The implementation for \texttt{bench mestic} was very similar to the implementation of \texttt{bench recursivebisection}. The only difference was that we uses metismex to get the ParGraphRecursive and PartGrapKway methods to do the partition for the graphs. The results for the number of cut edges for recursive bisection and direct multiway partitioning in Metis 5.1.0 are shown in Table \ref{table:Compare_Metis}.
 
+From the results we can see that there is not much difference in terms of the number of cut edges in the helicopter mesh where the mesh is low. However when we look at Skirt mesh we can see that the number of cut edges is a bit higher for way direct partition. 
 \begin{table}[h]
-\caption{Comparing the number of cut edges for recursive bisection and direct multiway partitioning in Metis 5.1.0.}
-\centering
-\begin{tabular}{l|r|r} \hline\hline 
-Partitions       &   Helicopter           & Skirt  \\ \hline
- 16 - recursive bisection             &                       &     \\   
- 16-way direct partition             &                       &             \\           
- 32 - recursive bisection                &                       &             \\
- 32-way direct partition              &                       &             \\  \hline \hline
-\end{tabular}              
-\label{table:Compare_Metis}
+    \caption{Comparing the number of cut edges for recursive bisection and direct multiway partitioning in Metis 5.1.0.}
+    \centering
+    \begin{tabular}{l|r|r} \hline\hline
+        Partitions               & Helicopter & Skirt \\ \hline
+        16 - recursive bisection & 343        & 3119  \\
+        16-way direct partition  & 324        & 3393  \\
+        32 - recursive bisection & 537        & 6075  \\
+        32-way direct partition  & 539        & 6051  \\  \hline \hline
+    \end{tabular}
+    \label{table:Compare_Metis}
 \end{table}
 
+Again unfortunately I was not able to visualize this in 3d because of a bug which by the time of the deadline I was not able to fix it.
 
 
 \end{document}

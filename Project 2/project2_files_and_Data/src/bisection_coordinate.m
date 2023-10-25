@@ -23,11 +23,11 @@ for dim = 1:d
     end
 end
 
-if picture
-    clf reset
-    gplotpart(A,xy,part1);
-    title('Coordinate bisection')
-end
+% if picture
+%     clf reset
+%     gplotpart(A,xy,part1);
+%     title('Coordinate bisection')
+% end
 
 
 end

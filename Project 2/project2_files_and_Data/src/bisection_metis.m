@@ -13,11 +13,11 @@ function [part1,part2] = bisection_metis(A,xy,picture)
 
 map = metismex('PartGraphRecursive',A,2);
 [part1,part2] = other(map);
-
-if picture
-    gplotpart(A,xy,part1);
-    title('Metis bisection')
-end
+% 
+% if picture
+%     gplotpart(A,xy,part1);
+%     title('Metis bisection')
+% end
 
 
 end
