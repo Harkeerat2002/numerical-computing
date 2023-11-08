@@ -14,10 +14,17 @@ fprintf('----------------------------\n');
 fprintf('epsilon similarity graph\n');
 fprintf('----------------------------\n');
 
-% dummy var
-G = ones(size(Pts,1),size(Pts,1));
-% \----------------------------/
-%     Your implementation
-% \----------------------------/
+% Calculate the distance matrix
+n = size(Pts,1);
+G = zeros(n,n);
+
+for i = 1:n
+    for j = 1:n
+        distance = norm(Pts(i,:) - Pts(j,:));
+        if distance < epsilon
+            G(i, j) = 1;
+        end
+    end
+end
 
 end

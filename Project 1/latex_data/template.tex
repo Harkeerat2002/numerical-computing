@@ -314,10 +314,10 @@ The above example uses the six-node as an example to test the Power Method. The 
     alpha = 0.99;
     iter = 0;
     while((norm(x - x_old)/ norm(x_old)) > prec)
-        x_old = x;
-        x = (alpha * I - A) \ x;
-        x = x / norm(x,1);
-        iter = iter + 1;
+    x_old = x;
+    x = (alpha * I - A) \ x;
+    x = x / norm(x,1);
+    iter = iter + 1;
     end
     %.....
     end
@@ -393,17 +393,17 @@ While pagerank1 took \textbf{125} iterations to converge, pagerank2 took \textbf
 As it can be sene from the table above, as the value of $\alpha$ increases the number of iterations required to converge also increases the iteration as well increases with it. This is because as the value of $\alpha$ increases the value of $ \frac{1}{\lambda_1 - \alpha} $ decreases. Hence the convergence is slower. \\
 
 \subsubsection{Use your functions pagerank1.m and pagerank2.m (set alpha = 0.99) to compute the PageRanks of three selected graphs (web1.mat, web2.mat and web3.mat). Report on the convergence of the two methods
-for these subgraphs and summarize the advantages and disadvantages of the power method implemented in
-pagerank1.m against the inverse iteration in pagerank2.m.}
+    for these subgraphs and summarize the advantages and disadvantages of the power method implemented in
+    pagerank1.m against the inverse iteration in pagerank2.m.}
 \begin{figure}[H]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
         Website & PageRank 1 Itearation & PageRank 2 Iteration \\
         \hline
-        Web 1 & 173 & 98 \\
-        Web 2 & 145 & 74 \\
-        Web 3 & 212 & 93 \\
+        Web 1   & 173                   & 98                   \\
+        Web 2   & 145                   & 74                   \\
+        Web 3   & 212                   & 93                   \\
         \hline
     \end{tabular}
     \caption{PageRank1 vs PageRank2}
@@ -561,11 +561,11 @@ The above table repersents the Top 5 authors with the highest degree centrality.
     \centering
     \begin{tabular}{|l|l|}
         \hline
-        Authors & Common Authors \\
+        Authors         & Common Authors                 \\
         \hline
-        Golub, Moler & Wilkinson, VanLoan \\
-        Golub, Saunders & Saunders \\
-        TChan, Demmel & Schreiber, Arioli, Duff, Heath \\
+        Golub, Moler    & Wilkinson, VanLoan             \\
+        Golub, Saunders & Saunders                       \\
+        TChan, Demmel   & Schreiber, Arioli, Duff, Heath \\
         \hline
     \end{tabular}
     \caption{Table of Common Authors}

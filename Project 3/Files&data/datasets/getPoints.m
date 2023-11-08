@@ -8,7 +8,7 @@ function [Pts_spirals,Pts_clusterin,Pts_corn,Pts_halfk,Pts_fullmoon,Pts_out] = g
 % ICS, USI.
 
 clear all;
-close all;y§b
+close all;
 
 figure;
 hold on;
@@ -59,5 +59,6 @@ scatter(Pts_out(:,1), Pts_out(:,2), dotsize,'k'); axis equal;
 % scatter(Pts_out(:,1),Pts_out(:,2),dotsize,Pts_out(:,3)); axis equal; % visualization 
 % axis off;
 title('Outlier');
+
 
 end
