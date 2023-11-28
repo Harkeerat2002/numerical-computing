@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.26)  26 NOV 2023 17:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.26)  26 NOV 2023 17:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -275,7 +275,7 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [openany].
 
-No file Project-Bonus-Report.aux.
+(./Project-Bonus-Report.aux)
 \openout1 = `Project-Bonus-Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
@@ -305,7 +305,7 @@ Package scrbase Info: activating english \listfigurename on input line 6.
 Package scrbase Info: activating english \listtablename on input line 6.
 Package scrbase Info: activating english \refname on input line 6.
 Package scrbase Info: activating english \indexname on input line 6.
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count272
 \scratchdimen=\dimen147
@@ -325,6 +325,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 6.
+ (./Project-Bonus-Report.out) (./Project-Bonus-Report.out)
 \@outlinefile=\write3
 \openout3 = `Project-Bonus-Report.out'.
 
@@ -345,15 +346,10 @@ File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
 <CI_logo.png, id=4, 1058.95625pt x 325.215pt>
 File: CI_logo.png Graphic file (type png)
 <use CI_logo.png>
-Package pdftex.def Info: CI_logo.png  used on input line 12.
+Package pdftex.def Info: CI_logo.png  used on input line 13.
 (pdftex.def)             Requested size: 211.26027pt x 64.87808pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--12
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--14
+Underfull \hbox (badness 10000) in paragraph at lines 13--13
 
  []
 
@@ -386,25 +382,19 @@ Overfull \hbox (4.87477pt too wide) in paragraph at lines 15--15
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./CI_logo.png>] [2] (./Project-Bonus-Report.aux)
-
-Package rerunfilecheck Warning: File `Project-Bonus-Report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Project-Bonus-Report.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package rerunfilecheck Info: File `Project-Bonus-Report.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 11384 strings out of 476041
- 206671 string characters out of 5793173
+ 11390 strings out of 476041
+ 206821 string characters out of 5793173
  1862388 words of memory out of 6000000
  31721 multiletter control sequences out of 15000+600000
  517816 words of font info for 50 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  108i,11n,106p,10695b,433s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Project-Bonus-Report.pdf (2 pages, 166651 bytes).
+Output written on Project-Bonus-Report.pdf (2 pages, 167786 bytes).
 PDF statistics:
  59 PDF objects out of 1000 (max. 8388607)
  40 compressed objects within 1 object stream
