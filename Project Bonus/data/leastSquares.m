@@ -1,7 +1,15 @@
-function [x_star, norm_r, SE, RMSE] = leastSquares(A, b)
-    x_star = (A' * A) \ (A' * b);
-    r = b - A * x_star;
-    norm_r = norm(r);
-    SE = r' * r;
-    RMSE = sqrt(SE / length(b));
+function [x_star, r, euclidian_norm, SE, RMSE] = leastSquares(A, b)
+    AtA = A'*A;
+    Atb = A'*b;    
+    
+
+
+
+
+    x = inv(AtA)*Atb;
+    x_star = x;
+    r = b - A*x_star;
+    euclidian_norm = norm(r);
+    SE = euclidian_norm^2;
+    RMSE = sqrt(SE/length(b));
 end
