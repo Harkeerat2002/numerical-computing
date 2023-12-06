@@ -33,11 +33,9 @@ norm(res)
 %(Now do it with your CG and Matlab's PCG routine!!!)
 
 %% Excercise 3.2
-
 x = ones(size(A_test, 1), 1);
 maxit = 200;
 tol = 1e-4;
-
 
 [x, residuals] = myCG(A_test, b_test, x, maxit, tol);
 
@@ -46,3 +44,21 @@ semilogy(residuals)
 ylim([-Inf,1e5]);
 xlabel('Iterations');
 ylabel('Residual value');
+legend('Residuals');
+title('Residuals vs Iterations for CG');
+saveas(gcf, '../Template/graphs/residuals.png');
+
+%% Excercise 3.3
+eigenvalues = eig(A_test);
+
+figure;
+semilogy(eigenvalues);
+ylim([-Inf,1e5]);
+xlabel('Eigenvalue index');
+ylabel('Eigenvalue value');
+legend('Eigenvalues');
+title('Eigenvalues vs Index');
+saveas(gcf, '../Template/graphs/eigenvalues.png');
+
+condition_number = cond(A_test);
+disp(['Condition number: ', num2str(condition_number)]);

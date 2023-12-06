@@ -6,6 +6,10 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{amsmath}  % for align environment
+\usepackage{graphicx}
+\usepackage{float}
+
+\restylefloat{figure}
 
 \setlength{\parindent}{0pt}
 
@@ -102,7 +106,79 @@ Hence can see at the end that we get the equation $Ax = b$ which is what we want
 
 \subsection{Write a function for the conjugate gradient solver [x,rvec]=myCG(A,b,x0,max itr,tol), where x and rvecare, respectively, the solution value and a vector containing the residual at every iteration.}
 
-In this question we are asked to write a function for the conjugate gradient solver. The function is called \texttt{myCG} and it takes in the following parameters: \texttt{A}, \texttt{b}, \texttt{x0}, \texttt{max\_itr} and \texttt{tol}. The function returns the solution value \texttt{x} and a vector containing the residual at every iteration \texttt{rvec}. The function is implemented in the Code Listing \ref{lst:myCG}.
+In this question we are asked to write a function for the conjugate gradient solver. The function is called \texttt{myCG} and it takes in the following parameters: \texttt{A}, \texttt{b}, \texttt{x0}, \texttt{max\_itr} and \texttt{tol}. The function returns the solution value \texttt{x} and a vector containing the residual at every iteration \texttt{rvec}. The function is implemented in the Code Listing \ref{lst:myCG}. The code is written from the provided Conjugate Gradient Algorithm in the Project Description.
+\\
+\\
+The function first initializes the solution $x$ with the initial guess $x0$, and computes the initial residual $r$ as $b - A * x0$. the direction $d$ is also initialized as r. Then the function enters a for loop which iterates for the maximum number of iterations. In each iteration, it performs the steps which is provided in the algorithm.
+
+\begin{lstlisting}[style=matlab, caption={Matlab function for Conjugate Gradient}, label={lst:myCG}]
+    function [x, rvec] = myCG(A, b, x0, maxIter, tol)
+        rvec = [];	
+        x = x0;
+        r = b - A * x0;
+        d = r;
+        pho_old = dot(r, r);
+        
+        
+        for i = 1:maxIter
+            s = A * d;
+            alpha = pho_old / dot(d, s);
+            x = x + alpha * d;
+            r = r - alpha * s;
+            pho_new = dot(r, r);
+
+            beta = pho_new / pho_old;
+            d = r + beta * d;
+            pho_old = pho_new;
+            
+            rvec = [rvec, pho_new];
+
+            if sqrt(pho_new) < tol
+                disp('Converged');
+                break;
+            end
+            
+            
+        end
+    end
+\end{lstlisting}
+
+\subsection{In order to validate your implementation, solve the system deﬁned by A test.matand b test.mat. Plot the convergence (residual vs iteration)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{graphs/residuals.png}
+    \caption{Residuals vs Iterations for the Conjugate Gradient Algorithm}
+    \label{fig:residuals}
+\end{figure}
+
+In this question we are asked to validate our implementation of the Conjugate Gradient Algorithm. We are given the matrix $A$ and the vector $b$. We are then asked to use the function which we implemented in the previous question to solve the system $Ax = b$. When we obtain the solution $x$ we are asked to plot the convergence of the residuals vs the iterations. The plot is shown in Figure \ref{fig:residuals}.
+
+Our maximum number of iterations is set to 200 and the tolerance is set to $10^{-4}$. From the Figure \ref{fig:residuals} we can see that the residuals converge right before the 180th iteration. Also the from the plot we can see that the residual overall decreases, but does has multiple spikes in between.
+
+\subsection{Plot the eigenvalues of A test.matand comment on the condition number and convergence rate.}
+In this question we are asked to plot the eigenvalues of $A$ and comment on the condition number and the convergence rate. Condition Number is defined as the ratio of the largest eigenvalue to the smallest eigenvalue. The condition number $\kappa(A)$ is the relation of sensitivy of the solution $x$ to the changes in the right hand side $b$. The condition number is computed as follows:
+
+\begin{equation}
+    \kappa(A) = \frac{\lambda_{max}}{\lambda_{min}}
+\end{equation}
+
+If small changes in $b$ cause large changes in $x$, then the system is called as ill-conditioned and the condition number of the system is large. However if small changes in $b$ cause small changes in $x$, then the system is called as well-conditioned and the condition number of the system is small. Hence the condition number is a measure of the sensitivity of the solution $x$ to the changes in the right hand side $b$.
+
+Hence in order to compute the condition number of $A$ we need to compute the eigenvalues of $A$. The eigenvalues of $A$ are computed using the \texttt{eig} function in Matlab. The eigenvalues are then sorted in ascending order and plotted. The plot is shown in Figure \ref{fig:eigenvalues}. As it can be seen in the plot the difference between the largest eigenvalue and the smallest eigenvalue is very large. Hence the condition number of $A$ is very large. This means that the system is ill-conditioned and small changes in $b$ will cause large changes in $x$. This can also be seen by calculating the condition number of $A$. We can do that by using the inbuilt \texttt{cond} function in Matlab. The condition number of $A$ is approximately $1.67 \times 10^{6}$ which is very large. Hence this is aligned with our previous observation that the system is ill-conditioned.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{graphs/eigenvalues.png}
+    \caption{Eigenvalues of A}
+    \label{fig:eigenvalues}
+\end{figure}
+
+\subsection{Does the residual decrease monotonically? Why or why not?}
+As it can be seen from Figure \ref{fig:residuals} the residual does not decrease monotonically. The residual decreases overall but has multiple spikes in between. Therefore when we are computing the residuals, we are computing the difference between the actual solution $x$ and the computed solution $x$. Since the system is ill-conditioned, small changes in $b$ will cause large changes in $x$. Hence the residual will have multiple spikes in between, but will overall decrease.
+
 
 \section{Deblurring problem [35 points]}
 
