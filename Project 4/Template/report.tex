@@ -8,6 +8,8 @@
 \usepackage{amsmath}  % for align environment
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{subfig}
+\usepackage{dirtree}
 
 \restylefloat{figure}
 
@@ -100,13 +102,14 @@ We want to show that by minimizing $\frac{1}{2} x^T Ax - b^Tx$ over $x$ is equiv
     Ax                                                    & = b
 \end{align}
 
-Hence can see at the end that we get the equation $Ax = b$ which is what we wanted to show.
+Therefore can see at the end that we get the equation $Ax = b$ which is what we wanted to show.
 
 \section{Conjugate Gradient [30 points]}
 
-\subsection{Write a function for the conjugate gradient solver [x,rvec]=myCG(A,b,x0,max itr,tol), where x and rvecare, respectively, the solution value and a vector containing the residual at every iteration.}
 
-In this question we are asked to write a function for the conjugate gradient solver. The function is called \texttt{myCG} and it takes in the following parameters: \texttt{A}, \texttt{b}, \texttt{x0}, \texttt{max\_itr} and \texttt{tol}. The function returns the solution value \texttt{x} and a vector containing the residual at every iteration \texttt{rvec}. The function is implemented in the Code Listing \ref{lst:myCG}. The code is written from the provided Conjugate Gradient Algorithm in the Project Description.
+\subsection{Write a function for the conjugate gradient solver \texttt{[x, rvec] = myCG(A, b, x0, max\_itr, tol)}, where \texttt{x} and \texttt{rvec} are, respectively, the solution value and a vector containing the residual at every iteration.}
+
+In this question we are asked to write a function for the conjugate gradient solver. The function is called \texttt{myCG} and it takes in the following parameters: \texttt{A}, \texttt{b}, \texttt{x0}, \texttt{max\_itr} and \texttt{tol}. The function returns the solution value \texttt{x} and a vector containing the residual at every iteration \texttt{rvec}. The function is implemented in the Code Listing \ref{lst:myCG}. The code is written from the provided Conjugate Gradient Algorithm in the project description.
 \\
 \\
 The function first initializes the solution $x$ with the initial guess $x0$, and computes the initial residual $r$ as $b - A * x0$. the direction $d$ is also initialized as r. Then the function enters a for loop which iterates for the maximum number of iterations. In each iteration, it performs the steps which is provided in the algorithm.
@@ -143,7 +146,7 @@ The function first initializes the solution $x$ with the initial guess $x0$, and
     end
 \end{lstlisting}
 
-\subsection{In order to validate your implementation, solve the system deﬁned by A test.matand b test.mat. Plot the convergence (residual vs iteration)}
+\subsection{In order to validate your implementation, solve the system defined by \texttt{A\_test.mat} and \texttt{b\_test.mat}. Plot the convergence (residual vs iteration)}
 
 \begin{figure}[H]
     \centering
@@ -153,18 +156,21 @@ The function first initializes the solution $x$ with the initial guess $x0$, and
 \end{figure}
 
 In this question we are asked to validate our implementation of the Conjugate Gradient Algorithm. We are given the matrix $A$ and the vector $b$. We are then asked to use the function which we implemented in the previous question to solve the system $Ax = b$. When we obtain the solution $x$ we are asked to plot the convergence of the residuals vs the iterations. The plot is shown in Figure \ref{fig:residuals}.
-
+\\
+\\
 Our maximum number of iterations is set to 200 and the tolerance is set to $10^{-4}$. From the Figure \ref{fig:residuals} we can see that the residuals converge right before the 180th iteration. Also the from the plot we can see that the residual overall decreases, but does has multiple spikes in between.
 
-\subsection{Plot the eigenvalues of A test.matand comment on the condition number and convergence rate.}
+\subsection{Plot the eigenvalues of A \texttt{test.mat} and comment on the condition number and convergence rate.}
+
 In this question we are asked to plot the eigenvalues of $A$ and comment on the condition number and the convergence rate. Condition Number is defined as the ratio of the largest eigenvalue to the smallest eigenvalue. The condition number $\kappa(A)$ is the relation of sensitivy of the solution $x$ to the changes in the right hand side $b$. The condition number is computed as follows:
 
 \begin{equation}
     \kappa(A) = \frac{\lambda_{max}}{\lambda_{min}}
 \end{equation}
 
-If small changes in $b$ cause large changes in $x$, then the system is called as ill-conditioned and the condition number of the system is large. However if small changes in $b$ cause small changes in $x$, then the system is called as well-conditioned and the condition number of the system is small. Hence the condition number is a measure of the sensitivity of the solution $x$ to the changes in the right hand side $b$.
-
+If small changes in $b$ cause large changes in $x$, then the system is called as ill-conditioned and the condition number of the system is large. However in the other hand, if small changes in $b$ cause small changes in $x$, then the system is called as well-conditioned and the condition number of the system is small. Therefore the condition number is a measure of the sensitivity of the solution $x$ to the changes in the right hand side $b$.
+\\
+\\
 Hence in order to compute the condition number of $A$ we need to compute the eigenvalues of $A$. The eigenvalues of $A$ are computed using the \texttt{eig} function in Matlab. The eigenvalues are then sorted in ascending order and plotted. The plot is shown in Figure \ref{fig:eigenvalues}. As it can be seen in the plot the difference between the largest eigenvalue and the smallest eigenvalue is very large. Hence the condition number of $A$ is very large. This means that the system is ill-conditioned and small changes in $b$ will cause large changes in $x$. This can also be seen by calculating the condition number of $A$. We can do that by using the inbuilt \texttt{cond} function in Matlab. The condition number of $A$ is approximately $1.67 \times 10^{6}$ which is very large. Hence this is aligned with our previous observation that the system is ill-conditioned.
 
 
@@ -181,6 +187,148 @@ As it can be seen from Figure \ref{fig:residuals} the residual does not decrease
 
 
 \section{Deblurring problem [35 points]}
+\subsection{Solve the deblurring problem for the blurred image matrix \texttt{B.mat} and transformation matrix \texttt{A.mat} using your routine \texttt{myCG} and Matlab’s preconditioned conjugate gradient \texttt{pcg}. As a preconditioner, use \texttt{ichol} to get the incomplete Cholesky factors and set routine type to \texttt{nofill} with $\alpha = 0.01$ for the diagonal shift (see Matlab documentation). Solve the system with both solvers using \texttt{max\_iter = 200} and \texttt{tol = 1e-6}. Plot the convergence (residual vs iteration) of each solver and display the original and final deblurred image. Comment on the results that you observe.}
+
+
+In this question we have to solve the deblurring problem for the blurred image matrix \texttt{B.mat} and transformation matrix \texttt{A.mat} using our implemented \texttt{myCG} function and Matlab's \texttt{pcg} function. We are also asked to use \texttt{ichol} as a preconditioner for the \texttt{pcg} function
+\\
+\\
+We first load the matrices $A$ and $B$. $A$ is the blurring matrix and $B$ is the blurred image. We then prepare for the Preconditioned Conjugate Gradient (PCG) method by creating the augmented system $augA$ and $augB$. We compute the preconditioner $M$ by using matlab function \texttt{ichol} with the \texttt{nofill} option (as asked). The PCG method is then applied to solved the system $augA \times x = augB$. We also make sure to have a diagonal shift of $\alpha = 0.01$ in the PCG method which is done by using the matlab function \texttt{speye} in which we create a sparse identity matrix and then multiply it by $\alpha$ and add that to our matrix $augA$. The solution $x$ is then reshaped to the original image size and then displayed.
+\\
+\\
+As for the implementation with our \texttt{myCG} function, we call the function with the parameters $A$, $B$, $x0$, $maxIter$ and $tol$. With this we are able to solve the system $Ax = b$. For both the implementation the result is then reshaped to the original image size and then displayed. Also the parameters for both the implementations are set to $maxIter = 200$ and $tol = 1e-6$.
+
+In the Code Listing \ref{lst:deblurring} we can see the implementation of the deblurring problem. The code follows the explanation given above.
+
+\begin{lstlisting}[style=matlab, caption={Matlab code for solving the deblurring problem}, label={lst:deblurring}]
+    %% Excercise 4.1
+    % Load data
+    loaded_A = load('blur_data/A.mat');
+    loaded_B = load('blur_data/B.mat');
+
+    A = loaded_A.A;
+    B = loaded_B.B;
+
+
+    img = B; % Blurred image
+    n = size(img, 1);
+    b = B(:); % Vectorized blurred image
+    guess = ones(size(A, 1), 1);
+    maxiter = 200; % Maximum number of iterations
+    tol = 1e-6; % Tolerance
+
+    % Display image
+    imagesc(reshape(img, [n, n]));
+    colormap('gray');
+    axis off;
+    saveas(gcf, '../Template/graphs/blurred.png');
+
+    % Solve the system using 'pcg'
+    augA = A' * A; % Augmented matrix of A
+    augA_shifted = augA + 0.01 * speye(size(augA)); % Shifted matrix
+
+    L = ichol(augA_shifted, struct('type', 'nofill')); % Incomplete Cholesky factorization
+    M = L * L'; % Preconditioner
+    M1 = L';
+    M2 = L;
+    augB = A' * b; % Augmented vector of b
+
+    [x_pcg, flag, relres, iter, resvec_pcg] = pcg(augA, augB, tol, maxiter, M1, M2); % Solve the system
+
+
+    % Draw deblurred image obtained with 'pcg'
+    imagesc(reshape(x_pcg, [n, n]));
+    colormap('gray');
+    axis off;
+    saveas(gcf, '../Template/graphs/deblurred_pcg.png');
+
+    % Draw residuals vs iterations
+    semilogy(resvec_pcg);
+    xlabel('Iterations');
+    ylabel('Residual value');
+    legend('Residuals');
+    title('Residuals vs Iterations for PCG');
+    saveas(gcf, '../Template/graphs/residuals_pcg.png');
+
+    disp(['Convergence flag: ', num2str(flag)]);
+
+    % Solve the system using 'myCG'
+
+    [x, residuals] = myCG(A, b, guess, maxiter, tol); % Solve the system
+
+    % Draw deblurred image obtained with 'myCG'
+    imagesc(reshape(x, [n, n]));
+    colormap('gray');
+    axis off;
+    saveas(gcf, '../Template/graphs/deblurred_mycg.png');
+
+    % Draw residuals vs iterations
+    semilogy(residuals);
+    xlabel('Iterations');
+    ylabel('Residual value');
+    legend('Residuals');
+    title('Residuals vs Iterations for myCG');
+    saveas(gcf, '../Template/graphs/residuals_mycg.png');
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{graphs/blurred.png}
+    \caption{Blurred Image}
+    \label{fig:blurred}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Deblurred Image using myCG]{\includegraphics[width=0.45\linewidth]{graphs/deblurred_mycg.png}\label{fig:deblurred_mycg}}
+    \hfill
+    \subfloat[Deblurred Image using PCG]{\includegraphics[width=0.45\linewidth]{graphs/deblurred_pcg.png}\label{fig:deblurred_pcg}}
+    \caption{Comparison of Deblurred Images using myCG and PCG}
+    \label{fig:deblurred_comparison}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Residuals vs Iterations for PCG]{\includegraphics[width=0.45\linewidth]{graphs/residuals_pcg.png}\label{fig:residuals_pcg}}
+    \hfill
+    \subfloat[Residuals vs Iterations for myCG]{\includegraphics[width=0.45\linewidth]{graphs/residuals_mycg.png}\label{fig:residuals_mycg}}
+    \caption{Comparison of Residuals vs Iterations for PCG and myCG}
+    \label{fig:residuals_comparison}
+\end{figure}
+
+As it can be seen from the Figures \ref{fig:deblurred_comparison}, the blurred image is deblurred using both the methods. However in our implementation the blurring using pcg is better than the blurring using myCG. This can be seen by comparing the residual graphs for both of them in Figure \ref{fig:residuals_comparison} which the residual for pcg is much lower than the residual for myCG. The main reason for why this happens is because of the preconditioner. The preconditioner is used to reduce the condition number of the system, which makes the system well-conditioned and hence the solution is more accurate. Hence the blurring using pcg performs better than the blurring using myCG, but it should also be noted that the pcg method is more computationally expensive than the myCG method. Therefore if we want a more accurate solution and we are willing to pay the computational cost, then we should use the pcg method. However if we want a less accurate solution and we are not willing to pay the computational cost, then we should use the myCG method.
+\subsection{When would \texttt{pcg} worth the added computational cost? What about if you are deblurring lots of images with the same blur operator?}
+
+There are several scenarios in which \texttt{pcg} is worth the added computational cost. One of the scenarios is when the system is ill-conditioned. In this case the solution obtained by \texttt{pcg} will be more accurate than the solution obtained by \texttt{myCG}. Another scenario is when the system is large. In this case the \texttt{pcg} will be faster than \texttt{myCG} because of the preconditioner. The preconditioner reduces the condition number of the system, hence the system is well-conditioned and the solution is more accurate. Hence in this case \texttt{pcg} is worth the added computational cost.
+\\
+\\
+If we are deblurring lots of images with the same blur operator, then \texttt{pcg} is worth the added computational cost. This is because the preconditioner is computed only once and then used for all the images. Therefore the computational cost is reduced.
+
+
+\section{Reproducing the results}
+In order to reproduce the results, Matlab is needed to be installed. The code is in the directory \texttt\texttt{Project4\_FilesData} and inside that directory there is a folder called \texttt{graphs}  which contains all the graphs. There would be two more directories called \texttt{blur\_data} and \texttt{deblur\_data} which contain the data for the project. The file \texttt{code\_template.m} must be run in order to reproduce the results. It uses the file \texttt{myCG.m} which is the implementation of the Conjugate Gradient Algorithm.
+\\
+
+Bellow is the visualization of the directory structure:
+
+\dirtree{%
+    .1 Project\_4\_sawhney\_harkeerat.
+    .2 blur\_data.
+    .3 A\_test.mat.
+    .3 b\_test.mat.
+    .3 x\_test\_exact.mat.
+    .2 test\_data.
+    .3 A.mat.
+    .3 B.mat.
+    .2 graphs.
+    .3 blurred.png.
+    .3 deblurred\_mycg.png.
+    .3 deblurred\_pcg.png.
+    .3 residuals\_mycg.png.
+    .3 residuals\_pcg.png.
+    .2 code\_template.m.
+}
 
 
 
