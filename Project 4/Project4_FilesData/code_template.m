@@ -62,3 +62,65 @@ saveas(gcf, '../Template/graphs/eigenvalues.png');
 
 condition_number = cond(A_test);
 disp(['Condition number: ', num2str(condition_number)]);
+
+%% Excercise 4.1
+loaded_A = load('blur_data/A.mat');
+loaded_B = load('blur_data/B.mat');
+
+A = loaded_A.A;
+B = loaded_B.B;
+
+img = B;
+n = size(img, 1);
+b = B(:);
+guess = ones(size(A, 1), 1);
+maxiter = 200;
+tol = 1e-6;
+
+% Display image
+imagesc(reshape(img, [n, n]));
+colormap('gray');
+axis off;
+saveas(gcf, '../Template/graphs/blurred.png');
+
+augA = A' * A;
+augA_shifted = augA + 0.01 * speye(size(augA));
+
+L = ichol(augA_shifted, struct('type', 'nofill'));
+M = L * L';
+M1 = L';
+M2 = L;
+augB = A' * b;
+
+[x_pcg, flag, relres, iter, resvec_pcg] = pcg(augA, augB, tol, maxiter, M1, M2);
+
+
+% Draw deblurred image obtained with 'pcg'
+imagesc(reshape(x_pcg, [n, n]));
+colormap('gray');
+axis off;
+saveas(gcf, '../Template/graphs/deblurred_pcg.png');
+
+semilogy(resvec_pcg);
+xlabel('Iterations');
+ylabel('Residual value');
+legend('Residuals');
+title('Residuals vs Iterations for PCG');
+saveas(gcf, '../Template/graphs/residuals_pcg.png');
+
+disp(['Convergence flag: ', num2str(flag)]);
+
+[x, residuals] = myCG(A, b, guess, maxiter, tol);
+
+imagesc(reshape(x, [n, n]));
+colormap('gray');
+axis off;
+saveas(gcf, '../Template/graphs/deblurred_mycg.png');
+
+semilogy(residuals);
+xlabel('Iterations');
+ylabel('Residual value');
+legend('Residuals');
+title('Residuals vs Iterations for myCG');
+saveas(gcf, '../Template/graphs/residuals_mycg.png');
+
