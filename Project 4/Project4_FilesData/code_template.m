@@ -4,13 +4,17 @@ clear; clc;
 %% Load Default Img Data
 load('blur_data/B.mat');
 B=double(B);
+n = size(B,1);
+sizeA = n * n;
+disp(['Size of A: ', num2str(sizeA)]);
+
 
 % Show Image
-figure
-im_l=min(min(B));
-im_u=max(max(B));
-imshow(B,[im_l,im_u])
-title('Blured Image')
+%figure
+%im_l=min(min(B));
+%im_u=max(max(B));
+%% imshow(B,[im_l,im_u])
+%title('Blured Image')
 
 % Vectorize the image (row by row)
 b=B';
@@ -27,3 +31,18 @@ load('test_data/b_test.mat');
 res=x_test_exact-inv(A_test)*b_test
 norm(res)
 %(Now do it with your CG and Matlab's PCG routine!!!)
+
+%% Excercise 3.2
+
+x = ones(size(A_test, 1), 1);
+maxit = 200;
+tol = 1e-4;
+
+
+[x, residuals] = myCG(A_test, b_test, x, maxit, tol);
+
+figure;
+semilogy(residuals)
+ylim([-Inf,1e5]);
+xlabel('Iterations');
+ylabel('Residual value');

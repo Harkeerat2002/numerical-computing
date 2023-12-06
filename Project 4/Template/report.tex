@@ -1,6 +1,30 @@
 \documentclass[unicode,11pt,a4paper,oneside,numbers=endperiod,openany]{scrartcl}
 
-\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+\usepackage{amssymb} % for \mathbb
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}  % for align environment
+
+\setlength{\parindent}{0pt}
+
+
+\lstdefinestyle{matlab}{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    commentstyle=\color[RGB]{34,139,34},
+    keywordstyle=\color[RGB]{0,0,255},
+    numberstyle=\tiny\color[RGB]{128,128,128},
+    numbers=left,
+    stepnumber=1,
+    frame=single,
+    breaklines=true,
+    backgroundcolor=\color[RGB]{240,240,240},
+    tabsize=2,
+    columns=flexible,
+    showstringspaces=false
+}
 
 \input{assignment.sty}
 \begin{document}
@@ -9,7 +33,7 @@
 \setassignment
 \setduedate{Wednesday, 6 December 2023, 11:59 PM}
 
-\serieheader{Numerical Computing}{2023}{\textbf{Student:} FULL NAME}{\textbf{Discussed with:} FULL NAME}{Solution for Project 4}{}
+\serieheader{Numerical Computing}{2023}{\textbf{Student:} Harkeerat Singh Sawhney}{}
 \newline
 
 \assignmentpolicy
@@ -19,9 +43,66 @@
 
 \section{General Questions [10 points]}
 
+\subsection{Size of Matrix A}
+From the Background Information given for this Project we do know that $A \in \mathbb{R}^{n^2 \times n^2} $ indicates the transformation matrix coming from the repeated application of what is referred to as the "image kernel", which in our case tends to produce the blurring effect. In the other hand $B$ is the transformed blurred image and $X$ is the original square, grayscale image matrix, in which each matrix entry corresponds to one pixel value. Hence the blurring computation can be defined be following equation:
+
+\begin{equation}
+    Ax = b
+\end{equation}
+
+In the above equation $x$ and $b$ are the vectorized repersentation of $X$ and $B$ respectively.
+
+\begin{lstlisting}[style=matlab, caption={Computing the size of A}, label={lst:computing_size_of_A}]
+    %% Load Default Img Data
+    load('blur_data/B.mat');
+    B=double(B);
+    n = size(B,1);
+    sizeA = n * n;
+    disp(['Size of A: ', num2str(sizeA)]);
+\end{lstlisting}
+
+From the Code Listing \ref{lst:computing_size_of_A} we can see that the size of $A$ is $62500 \times 62500$. This is computed through the size of $B$ which is $250 \times 250$ and then multiplying it by itself.
+
+\subsection{How many diagonal bands does A have?}
+It is understood that A is a $d^2$-banded symmetric matrix, where $d << n$. Since we know that the size of the kernel image matrix is $7 \times 7$ then we can also compute the amount of diagonal bands that A has. Hence the amount of diagonal bands that A has is $49$.
+
+\subsection{What is the length of the vectorized blurred image b}
+In order to compute the length of the vectorized blurred image $b$, we need to compute the size of $B$ and then multiply it by itself. We know that $B$ is a $250 \times 250$ matrix, hence the length of the vectorized blurred image $b$ is $62500$.
+
 \section{Properties of A [10 points]}
+\subsection{If A is not symmetric, how would this affect $\tilde{A}$?}
+A is used to compute the Conjugate Gradient method, which is an iterative method to solve the linear system $Ax = b$. If A is symmetric of full rank but not positive-definite we can bypass this issue by solving the augmented System.
+
+\begin{align}
+    A^TAx      & = A^Tb      \\
+    \tilde{A}x & = \tilde{b}
+\end{align}
+
+In the above equation the pre-multiplication with $A^T$ ensures that the resulting matrix $\tilde{A}$ is symmetric and positive-definite. Hence even if A is not symmetric, we can still compute $\tilde{A}$ because of the properties of $A^T$.
+
+\subsection{Explain why solving $Ax = b$ for $x$ is equivalent to minimizing $\frac{1}{2} x^T Ax - b^Tx$ over $x$, assuming that $A$ is symmetric positive\textendash definite.}
+
+We want to show that by minimizing $\frac{1}{2} x^T Ax - b^Tx$ over $x$ is equivalent to solving $Ax = b$. We can do this by taking the derivative of $\frac{1}{2} x^T Ax - b^Tx$ with respect to $x$ and setting it to zero. Hence we get the following equation:
+
+\begin{align}
+    \frac{d}{dx} \left( \frac{1}{2} x^T Ax - b^Tx \right) & = 0                           \\
+    \frac{1}{2} \left( x^T A + x^T A^T \right) - b^T      & = 0                           \\
+    x^T A - b^T                                           & = 0                           \\
+    x^T A                                                 & = b^T                         \\
+    x^T                                                   & = b^T A^{-1}                  \\
+    x                                                     & = \left( b^T A^{-1} \right)^T \\
+    x                                                     & = \left( A^{-1} \right)^T b   \\
+    x                                                     & = A^{-1} b                    \\
+    Ax                                                    & = b
+\end{align}
+
+Hence can see at the end that we get the equation $Ax = b$ which is what we wanted to show.
 
 \section{Conjugate Gradient [30 points]}
+
+\subsection{Write a function for the conjugate gradient solver [x,rvec]=myCG(A,b,x0,max itr,tol), where x and rvecare, respectively, the solution value and a vector containing the residual at every iteration.}
+
+In this question we are asked to write a function for the conjugate gradient solver. The function is called \texttt{myCG} and it takes in the following parameters: \texttt{A}, \texttt{b}, \texttt{x0}, \texttt{max\_itr} and \texttt{tol}. The function returns the solution value \texttt{x} and a vector containing the residual at every iteration \texttt{rvec}. The function is implemented in the Code Listing \ref{lst:myCG}.
 
 \section{Deblurring problem [35 points]}
 
