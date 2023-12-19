@@ -5,6 +5,10 @@
 \input{assignment.sty}
 
 
+\usepackage{float}
+
+
+
 \begin{document}
 
 
@@ -16,106 +20,188 @@
 
 \assignmentpolicy
 
-
-The purpose of this project is to implement the Simplex Method to find the solution of linear programs, involving both the minimisation and the maximisation of the objective function.
+\newpage
 
 \section{Graphical Solution of Linear Programming Problems [20 points]}
-Please consider the following two problems:
-\begin{enumerate}
-	\item[(1)] \begin{equation*}
-		\begin{aligned}
-		& \text{min}  &  z=4x&+y\\
-		& \text{ s.t.} &  x+2y &\leq 40 \\
-		& &   x+y &\geq 30\\
-		& &   2x+3y &\geq 72 \\
-		& &  x,\,y &\geq0 \\
-		\end{aligned}
-		\end{equation*}
-	\item[(2)] A tailor plans to sell two types of trousers, with production costs of 25 CHF and 40 CHF, respectively. The former type can be sold for 85 CHF, while the latter for 110 CHF. The tailor estimates a total monthly demand of 265 trousers. Find the number of units of each type of trousers that should be produced in order to maximise the net profit of the tailor, if we assume that the he cannot spend more than 7000 CHF in raw materials.
-\end{enumerate}
-Start by writing problem (2) as a linear programming problem. Then complete the following tasks:
+\subsection{Problem 1}
+\subsubsection{Solve the System of Inequalities}
+We are asked to solve the system of inequalities, which is already given in the question itself.
+
+\begin{equation}
+	\begin{aligned}
+		min \quad  & z = 4x + y      \\
+		s.t. \quad & x + 2y \leq 40  \\
+		           & x + y \geq 30   \\
+		           & 2x + 3y \geq 72 \\
+		           & x, y \geq 0
+	\end{aligned}
+	\label{eq:1.1.1}
+\end{equation}
+
+Hence as it can be seen from the Equation \ref{eq:1.1.1}, we have to find the minimum value of $z$ such that the constraints are satisfied. This can be solved graphically by plotting the constraints and finding the minimum value of $z$. Before that lets rewrite the constraints in the form of $y = mx + c$ which can be seen at Equation \ref{eq:1.1.2}.
+
+\begin{equation}
+	\begin{aligned}
+		min \quad  & z = 4x + y             \\
+		s.t. \quad & y = -\frac{1}{2}x + 20 \\
+		           & y = -x + 30            \\
+		           & y = -\frac{2}{3}x + 24 \\
+		           & x, y \geq 0
+	\end{aligned}
+	\label{eq:1.1.2}
+\end{equation}
+
+\subsubsection{Plot the feasible region identiﬁed by the constraints.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/problem_1.1.1.png}
+	\caption{Plot of all the constraints for Problem 1}
+	\label{fig:problem_1.1}
+\end{figure}
+Now we can plot the constraints on a graph as shown in Figure \ref{fig:problem_1.1}. Figure \ref{fig:problem_1.1} is showing the plot of all the constraints. All of these constraints can be seen by their respective colors. However what we are interested is in the region where all the constraints maximum, as that region would include all minimum value of $z$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/problem_1.1.2.png}
+	\caption{Shading the region where all the constraints maximum for Problem 1}
+	\label{fig:problem_1.2}
+\end{figure}
+
+As it can be seen from the Figure \ref{fig:problem_1.2}, the region where all the constraints maximum is the region where the minimum value of $z$ would be. Here what is important for us is the points of intersection of the constrains with each other and the points of intersection of the constraints with the axes. These points are as well shown in the Figure \ref{fig:problem_1.2}. These points are as follows:
+
 \begin{itemize}
-	\item Solve the system of inequalities.
-	\item Plot the feasible region identified by the constraints.
-	\item Find the optimal solution and the value of the objective function in that point.
+	\item $(24, 8)$
+	\item $(40, 0)$
+	\item $(36, 0)$
 \end{itemize}
 
+\subsubsection{ Find the optimal solution and the value of the objective function in that point.}
+Now from the previous part we have the points of intersection of the constraints with each other and the points of intersection of the constraints with the axes. What we need to do now is to find the minium value of $z$ at these points. Hence we have to evaluate the objective function at each vertices and pick the minimum value of $z$. The vertices are as follows:
 
-\section{Implementation of the Simplex Method [30 points]}
+\begin{equation}
+	\begin{aligned}
+		At \quad (24, 8) \quad z = 4(24) + 8 = 104 \\
+		At \quad (40, 0) \quad z = 4(40) + 0 = 160 \\
+		At \quad (36, 0) \quad z = 4(36) + 0 = 144
+	\end{aligned}
+	\label{eq:1.1.3}
+\end{equation}
 
-In this first part of the assignment, you are required to complete 2 functions which are part of a dummy implementation of the simplex method. Specifically you have to complete the TODOs in:
+From the Equation \ref{eq:1.1.3} we can see that the minimum value of $z$ is at $(24, 8)$ which is $104$.
+
+\subsection{Problem 2}
+\subsubsection{Solve the System of Inequalities}
+This is a bit more tricker than the previous problem, as unlike previous problem we do now have the mathematical form of the constraints. We have a real life problem from which we have to convert to the mathematical form. The problem is as follows:
+
+\begin{quote}
+	\textit{A tailor plans to sell two types of trousers, with production costs of $25 $ CHF and $40$ CHF, respectively. The former type can be sold for $85$ CHF, while the latter for $110$ CHF. The tailor estimates a total monthly demand of $265$ trousers. Find the number of units of each type of trousers that should be produced in order to maximise the net proﬁt of the tailor, if we assume that the he cannot spend more than $7000$ CHF in raw materials.?}
+\end{quote}
+
+Hence from the above problem we can see that we have to find the maximum value of $z$ which is the net profit of the tailer. The variables are as follows:
+
+
 \begin{itemize}
-	\item \emph{standardise.m}, which writes a maximisation or minimisation input problem in standard form;
-	\item \emph{simplexSolve.m}, which solves a maximisation or minimisation problem using the simplex method.
+	\item $x$ = Number of trousers of type 1
+	\item $y$ = Number of trousers of type 2
+	\item $z$ = Net profit of the tailor
 \end{itemize}
-You are given also some already-implemented functions to help you in your task: \emph{simplex.m} is a wrapper which calls all the functions necessary to find a solution to the linear program; \emph{auxiliary.m} solves the auxiliary problem to find a feasible starting basic solution of the linear program; \emph{printSol.m} is a function which prints the optimal solution found by the simplex algorithm. Finally, \emph{testSimplex.m} presents a series of 6 problems to check if your implementation is correct, before moving to the next part of the assignment. Additional details to aid you in your implementation can be found in the comments inside the code.
 
-\section{Applications to Real-Life Example: Cargo Aircraft [25 points]}
+We have obtained the Objective Function (Maximize Profit $z$) by knowing that the profit from selling the first type of trousers is $85 - 25 = 60$ CHF and the profit from selling the second type of trousers is $110 - 40 = 70$ CHF. Hence we can write the Objective Function as follows:
 
-In this second part of the assignment, you are required to use the simplex method implementation to solve a real-life problem taken from economics (constrained profit maximisation).
+\begin{equation}
+	\begin{aligned}
+		Maximize \quad & z = 60x + 70y \\
+	\end{aligned}
+	\label{eq:1.1.4}
+\end{equation}
 
-A cargo aircraft has 4 compartments (indicated simply as $S_1,\dots,S_4$) used to store the goods to be transported. Details about the weight capacity and storage capacity of the different compartments can be inferred from the data reported in the following table: 
+We know that the total demand of trousers is $265$ and the total amount of money that can be spent on raw materials is $7000$ CHF. Hence we can write the first constraint as follows:
 
-\begin{center}
- \begin{tabular}{||c | c | c ||} 
- \hline
- Compartment & Weight Capacity ($t$) & Storage Capacity ($m^3$) \\ [0.5ex] 
- \hline\hline
- $S_1$ & 18 & 11930\\ 
- \hline
- $S_2$ & 32 & 22552\\
- \hline
- $S_3$ & 25 & 11209\\
- \hline
- $S_4$ & 17 & 5870\\
- \hline
-\end{tabular}
-\end{center}
+\begin{equation}
+	\begin{aligned}
+		x + y \leq 265 \\
+	\end{aligned}
+	\label{eq:1.1.5}
+\end{equation}
 
-The following four cargos are available for shipment during the next flight:
+We also know that the cost of producing the first type of trousers is $25$ CHF and the cost of producing the second type of trousers is $40$ CHF. Hence we can write the second constraint as follows:
 
-\begin{center}
- \begin{tabular}{|| c | c | c | c ||} 
- \hline
- Cargo & Weight ($t$) & Volume ($m^3/t$) & Profit ($\text{CHF}/t$) \\ [0.5ex] 
- \hline\hline
- $C_1$ & 16  & 320 & 135 \\ 
- \hline
- $C_2$ & 32  & 510 & 200 \\
- \hline
- $C_3$ & 40 & 630 & 410 \\
- \hline
- $C_4$ & 28 & 125 & 520 \\
- \hline
-\end{tabular}
-\end{center}
+\begin{equation}
+	\begin{aligned}
+		25x + 40y \leq 7000 \\
+	\end{aligned}
+	\label{eq:1.1.6}
+\end{equation}
 
-Any proportion of the four cargos can be accepted, and the profit obtained for each cargo is increased by $10\%$ if it is put in $S_2$, by $20\%$ if it is put in $S_3$ and by $30\%$ if it is put in $S_4$, due to the better storage conditions. The objective of this problem is to determine which amount of the different cargos will be transported and how to allocate it among the different compartments, while maximising the profit of the owner of the cargo plane. Specifically you have to:
-\begin{enumerate}
-	\item Formulate the problem above as a linear program: what is the objective function? What are the constraints? Write down all equations, with comments explaining what you are doing.
-	\item Create a script \emph{exercise2.m} which uses the simplex method implemented in the previous exercise to solve the problem. What is the optimal solution? Visualise it graphically and briefly comment the results obtained (are you surprised of this outcome on the basis of your data?).
-\end{enumerate}
+Hence finally by combining the Equation \ref{eq:1.1.4}, \ref{eq:1.1.5} and \ref{eq:1.1.6} we can write the constraints as follows in the mathematical form at Equation \ref{eq:1.1.7}.
+
+\begin{equation}
+	\begin{aligned}
+		min \quad  & z = 60x + 25y       \\
+		s.t. \quad & x + y \leq 265      \\
+		           & 25x + 40y \leq 7000 \\
+		           & x, y \geq 0
+	\end{aligned}
+	\label{eq:1.1.7}
+\end{equation}
+
+Now we must rewrite the constraints in the form of $y = mx + c$ which can be seen at Equation \ref{eq:1.1.8}.
+
+\begin{equation}
+	\begin{aligned}
+		min \quad  & z = 60x + 25y           \\
+		s.t. \quad & y = -x + 265            \\
+		           & y = -\frac{5}{8}x + 175 \\
+		           & x, y \geq 0
+	\end{aligned}
+	\label{eq:1.1.8}
+\end{equation}
+
+\subsubsection{Plot the feasible region identiﬁed by the constraints.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/problem_1.2.1.png}
+	\caption{Plot of all the constraints for Problem 2}
+	\label{fig:problem_2.1}
+\end{figure}
+
+Again very similar to the previous problem, we have to plot the constraints on a graph as shown in Figure \ref{fig:problem_2.1}. Figure \ref{fig:problem_2.1} is showing the plot of all the constraints and all of these constraints can be seen by their respective colors. However what we are interested is in the region where all the constraints maximum, as that region would include all maximize value of $z$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/problem_1.2.2.png}
+	\caption{Shading the region where all the constraints maximum for Problem 2}
+	\label{fig:problem_2.2}
+\end{figure}
+
+As it can be seen from the Figure \ref{fig:problem_2.2}, the region where all the constraints maximum is the region where the maximum value of $z$ would be. Here what is important for us is the points of intersection of the constrains with each other and the points of intersection of the constraints with the axes. These points are as well shown in the Figure \ref{fig:problem_2.2}. These points are as follows:
+
+\begin{itemize}
+	\item $(0, 175)$
+	\item $(240, 25)$
+	\item $(265, 0)$
+	\item $(0, 0)$
+\end{itemize}
+
+\subsubsection{ Find the optimal solution and the value of the objective function in that point.}
+
+Now from the previous part we have the points of intersection of the constraints with each other and the points of intersection of the constraints with the axes. What we need to do now is to find the minium value of $z$ at these points. Hence we have to evaluate the objective function at each vertices and pick the minimum value of $z$. The vertices are as follows:
+
+\begin{equation}
+	\begin{aligned}
+		At \quad (0, 175) \quad z = 60(0) + 25(175) = 4375    \\
+		At \quad (240, 25) \quad z = 60(240) + 25(25) = 15025 \\
+		At \quad (265, 0) \quad z = 60(265) + 25(0) = 15900   \\
+		At \quad (0, 0) \quad z = 60(0) + 25(0) = 0
+	\end{aligned}
+	\label{eq:1.1.9}
+\end{equation}
+
+From the Equation \ref{eq:1.1.9} we can see that the maximum value of $z$ is at $(265, 0)$ which is $15900$.
 
 
-\section{Cycling and Degeneracy [10 points]}
-
-Consider now the following simple problem:
-\begin{alignat*}{2}
-	&\text{max}\;\, && z = 3x_1+4x_2,\\
-	&\text{s.t.} && 4x_1+3x_2\leq 12\\
-	& && 4x_1+x_2\leq 8\\
-	& && 4x_1+2x_2\leq 8\\
-	& && x_1, x_2 \geq 0.
-\end{alignat*}
-
-\begin{enumerate}
-	\item Create a script \emph{exercise3.m} which uses the simplex method implemented above to solve this problem. Do you achieve convergence within the maximum number of iterations (given by the maximum number of possible basic solutions)? Do you notice any strange behaviour? (\emph{hint:} check, e.g., the indices of the entering and departing variables)
-	\item Look at the number of constraints and at the number of unknowns: what can you notice about the underlying system of equations? Represent them graphically and try to use this information to explain the behaviour of your solver in the previous point. 
-\end{enumerate}
-
-\section{Quality of the Code \& Report [15 points]}
-
-Each project sums up to 100 points, out of which 15 points are dedicated to the general quality of your written report and of the code submitted. Your report should be a coherent document. If there are theoretical questions, explain and justify your answers. If you made a particular choice in your implementation that might be out of the ordinary, please explain it in the report. The code you submit should be self-contained and executable. It should include the set-up for all the results that you obtained and listed in your report. Furthermore, it should be readable and include comments explaining the more complicated steps.
 
 
 \end{document}

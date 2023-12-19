@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.4)  14 DEC 2023 18:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.4)  19 DEC 2023 23:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -331,10 +331,17 @@ LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 ) (c:/texlive/2023/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-)) (c:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+)) (c:/texlive/2023/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count285
+\float@exts=\toks25
+\float@box=\box55
+\@float@everytoks=\toks26
+\@floatcapt=\box56
+) (c:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-11-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count285
-\l__pdf_internal_box=\box55
+\l__color_backend_stack_int=\count286
+\l__pdf_internal_box=\box57
 )
 
 LaTeX Warning: Unused global option(s):
@@ -343,53 +350,53 @@ LaTeX Warning: Unused global option(s):
 (./project_5_sawhney_harkeerat.aux)
 \openout1 = `project_5_sawhney_harkeerat.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-Package scrbase Info: activating english \abstractname on input line 8.
-Package scrbase Info: activating english \partname on input line 8.
-Package scrbase Info: activating english \figurename on input line 8.
-Package scrbase Info: activating english \tablename on input line 8.
-Package scrbase Info: activating english \contentsname on input line 8.
-Package scrbase Info: activating english \listfigurename on input line 8.
-Package scrbase Info: activating english \listtablename on input line 8.
-Package scrbase Info: activating english \refname on input line 8.
-Package scrbase Info: activating english \indexname on input line 8.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+Package scrbase Info: activating english \abstractname on input line 12.
+Package scrbase Info: activating english \partname on input line 12.
+Package scrbase Info: activating english \figurename on input line 12.
+Package scrbase Info: activating english \tablename on input line 12.
+Package scrbase Info: activating english \contentsname on input line 12.
+Package scrbase Info: activating english \listfigurename on input line 12.
+Package scrbase Info: activating english \listtablename on input line 12.
+Package scrbase Info: activating english \refname on input line 12.
+Package scrbase Info: activating english \indexname on input line 12.
  (c:/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count286
+\scratchcounter=\count287
 \scratchdimen=\dimen156
-\scratchbox=\box56
-\nofMPsegments=\count287
-\nofMParguments=\count288
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count289
+\scratchbox=\box58
+\nofMPsegments=\count288
+\nofMParguments=\count289
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count290
 \MPscratchDim=\dimen157
-\MPnumerator=\count290
-\makeMPintoPDFobject=\count291
-\everyMPtoPDFconversion=\toks26
+\MPnumerator=\count291
+\makeMPintoPDFobject=\count292
+\everyMPtoPDFconversion=\toks28
 ) (c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 8.
+Package hyperref Info: Link coloring OFF on input line 12.
  (./project_5_sawhney_harkeerat.out) (./project_5_sawhney_harkeerat.out)
 \@outlinefile=\write3
 \openout3 = `project_5_sawhney_harkeerat.out'.
@@ -401,51 +408,94 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           `bookmarkpackage=false' before \begin{document} and
 (scrartcl)           you can avoid this message adding:
 (scrartcl)             \usepackage{bookmark}
-(scrartcl)           before \begin{document} on input line 8.
+(scrartcl)           before \begin{document} on input line 12.
  (c:/texlive/2023/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
  (c:/texlive/2023/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
-\BKM@id=\count292
+\BKM@id=\count293
 ))
 <CI_logo.png, id=4, 1058.95625pt x 325.215pt>
 File: CI_logo.png Graphic file (type png)
 <use CI_logo.png>
-Package pdftex.def Info: CI_logo.png  used on input line 14.
+Package pdftex.def Info: CI_logo.png  used on input line 18.
 (pdftex.def)             Requested size: 211.26027pt x 64.87808pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--14
+Underfull \hbox (badness 10000) in paragraph at lines 18--18
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--16
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
 
  []
 
 
-Overfull \hbox (4.87477pt too wide) in paragraph at lines 17--17
+Overfull \hbox (4.87477pt too wide) in paragraph at lines 21--21
 []\TS1/cmr/m/n/10.95 ˆ| 
  []
 
 
-Overfull \hbox (4.87477pt too wide) in paragraph at lines 17--17
+Overfull \hbox (4.87477pt too wide) in paragraph at lines 21--21
 []\TS1/cmr/m/n/10.95 ˆ| 
  []
 
 
-Overfull \hbox (4.87477pt too wide) in paragraph at lines 17--17
+Overfull \hbox (4.87477pt too wide) in paragraph at lines 21--21
 []\TS1/cmr/m/n/10.95 ˆ| 
  []
 
 
-Overfull \hbox (4.87477pt too wide) in paragraph at lines 17--17
+Overfull \hbox (4.87477pt too wide) in paragraph at lines 21--21
 []\TS1/cmr/m/n/10.95 ˆ| 
  []
 
 [1
 
-{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./CI_logo.png>] [2] [3] (./project_5_sawhney_harkeerat.aux)
+{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./CI_logo.png>]
+<figures/problem_1.1.1.png, id=20, 803.0pt x 803.0pt>
+File: figures/problem_1.1.1.png Graphic file (type png)
+<use figures/problem_1.1.1.png>
+Package pdftex.def Info: figures/problem_1.1.1.png  used on input line 58.
+(pdftex.def)             Requested size: 234.73523pt x 234.73871pt.
+<figures/problem_1.1.2.png, id=23, 803.0pt x 803.0pt>
+File: figures/problem_1.1.2.png Graphic file (type png)
+<use figures/problem_1.1.2.png>
+Package pdftex.def Info: figures/problem_1.1.2.png  used on input line 66.
+(pdftex.def)             Requested size: 234.73523pt x 234.73871pt.
+ [2
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.70 
+      <./figures/problem_1.1.1.png>] [3
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.99 \end{quote}
+                 <./figures/problem_1.1.2.png>]
+<figures/problem_1.2.1.png, id=57, 803.0pt x 803.0pt>
+File: figures/problem_1.2.1.png Graphic file (type png)
+<use figures/problem_1.2.1.png>
+Package pdftex.def Info: figures/problem_1.2.1.png  used on input line 165.
+(pdftex.def)             Requested size: 234.73523pt x 234.73871pt.
+ [4]
+<figures/problem_1.2.2.png, id=69, 803.0pt x 803.0pt>
+File: figures/problem_1.2.2.png Graphic file (type png)
+<use figures/problem_1.2.2.png>
+Package pdftex.def Info: figures/problem_1.2.2.png  used on input line 174.
+(pdftex.def)             Requested size: 234.73523pt x 234.73871pt.
+ [5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.184 	\item $
+              (265, 0)$
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.184 	\item $
+              (265, 0)$ <./figures/problem_1.2.1.png> <./figures/problem_1.2.2.png>] [6] (./project_5_sawhney_harkeerat.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-11-09>
@@ -454,18 +504,18 @@ Package rerunfilecheck Info: File `project_5_sawhney_harkeerat.out' has not chan
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 12364 strings out of 474267
- 217357 string characters out of 5751465
- 1945558 words of memory out of 5000000
- 34428 multiletter control sequences out of 15000+600000
- 564272 words of font info for 57 fonts, out of 8000000 for 9000
+ 12511 strings out of 474267
+ 220522 string characters out of 5751465
+ 1936558 words of memory out of 5000000
+ 34555 multiletter control sequences out of 15000+600000
+ 564566 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,11n,107p,10983b,530s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on project_5_sawhney_harkeerat.pdf (3 pages, 209189 bytes).
+ 108i,11n,107p,10983b,514s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on project_5_sawhney_harkeerat.pdf (6 pages, 306395 bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
- 73 compressed objects within 1 object stream
- 13 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 159 PDF objects out of 1000 (max. 8388607)
+ 123 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 98 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -14,6 +14,8 @@ n = size(A,2);
 % TODO: Compute the maximum number of basic solutions of the original problem (i.e., the maximum number of iterations necessary to solve the problem)
 %itMax = 
 
+itMax = factorial(vpa(m+n))/(factorial(vpa(m))*factorial(vpa(n)));
+
 % Writing the problem in standard form
 [A_aug,h,c_aug] = standardize(type,A,h,c,m,sign);
 
@@ -25,8 +27,20 @@ n = size(A,2);
 
 % TODO: Compute the value of the objective function
 %z = 
+temp = c_B * x_B;
+z = temp(1);
 
 % Output of the solution
 [x_B,index_B] = printSol(z,x_B,index_B,m,n);
+
+disp(x_B)
+disp(index_B)
+
+if 380000 == z
+    disp('ok')
+else
+    disp('not ok')
+end
+
 
 end
