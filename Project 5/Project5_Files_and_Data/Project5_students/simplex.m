@@ -30,6 +30,10 @@ itMax = factorial(vpa(m+n))/(factorial(vpa(m))*factorial(vpa(n)));
 temp = c_B * x_B;
 z = temp(1);
 
+% Rounding the solution to a whole number
+x_B = round(x_B);
+z = round(z);
+
 % Output of the solution
 [x_B,index_B] = printSol(z,x_B,index_B,m,n);
 
